@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Выбор фильма</title>
+	</head>
+	<body>
+		<h1>Выберите жанр и теги фильма:</h1>
+		<form action="/random_movie" method="post">
+			<label for="genre">Жанр:</label>
+			<select id="genre" name="genre">
+				<option value="драма">Драма</option>
+				<option value="комедия">Комедия</option>
+				<option value="фантастика">Фантастика</option>
+			</select>
+			<br />
+			<label for="tags">Теги:</label>
+			<input type="checkbox" id="tag1" name="tags" value="тег1" />
+			<label for="tag1">Тег 1</label>
+			<input type="checkbox" id="tag2" name="tags" value="тег2" />
+			<label for="tag2">Тег 2</label>
+			<input type="checkbox" id="tag3" name="tags" value="тег3" />
+			<label for="tag3">Тег 3</label>
+			<br />
+			<input type="submit" value="Показать случайный фильм" />
+		</form>
+	</body>
+</html>
