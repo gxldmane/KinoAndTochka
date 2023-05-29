@@ -1,12 +1,46 @@
-import json
-from flask import Flask, render_template, request
 import random
+from flask import Flask, render_template, request
+from kinopoisk_unofficial.kinopoisk_api_client import KinopoiskApiClient
+from kinopoisk_unofficial.model.filter_genre import FilterGenre
+from kinopoisk_unofficial.request.films.film_search_by_filters_request import FilmSearchByFiltersRequest
+from kinopoisk_unofficial.request.films.film_request import FilmRequest
 
 app = Flask(__name__)
+api_client = KinopoiskApiClient("66cfec9c-4a01-47fd-9fc3-1caa79ecf41c")
 
-# Загрузка данных из .json файла с использованием кодировки UTF-8
-with open('movies.json', 'r', encoding='utf-8') as json_file:
-    movies_db = json.load(json_file)
+film_cache = {}  # Кэш для сохранения результатов запросов к API
+
+def get_filtered_films(genre):
+    if genre in film_cache:
+        filtered_list_of_films = film_cache[genre]
+    else:
+        film_request = FilmSearchByFiltersRequest()
+        film_request.add_genre(FilterGenre(24, genre))
+
+        response = api_client.films.send_film_search_by_filters_request(film_request)
+        result = response.items
+
+        filtered_list_of_films = []
+
+        for i in result:
+            film = get_film_details(i.kinopoisk_id)
+            filtered_list_of_films.append(film)
+
+        film_cache[genre] = filtered_list_of_films
+
+    return filtered_list_of_films
+
+def get_film_details(kinopoisk_id):
+    if kinopoisk_id in film_cache:
+        film = film_cache[kinopoisk_id]
+    else:
+        film_request = FilmRequest(kinopoisk_id)
+        response_film = api_client.films.send_film_request(film_request)
+        film = response_film.film
+
+        film_cache[kinopoisk_id] = film
+
+    return film
 
 @app.route('/')
 def index():
@@ -14,25 +48,19 @@ def index():
 
 @app.route('/random_movie', methods=['POST'])
 def random_movie():
-    selected_genre = request.form.get('genre')
-    selected_duration = request.form.get('duration')
-    selected_novelty = request.form.get('novelty')
-    selected_age_limit = request.form.get('age_limit')
-    selected_country = request.form.get('country')
+    genre = request.form.get('genre')
 
-    filtered_movies = [movie for movie in movies_db if
-                       movie['genre'] == selected_genre and
-                       (selected_duration == 'short' and movie['duration'] < 120 or
-                        selected_duration == 'long' and movie['duration'] >= 120) and
-                       (selected_novelty == 'old' and movie['year'] < 2010 or
-                        selected_novelty == 'new' and movie['year'] >= 2010) and
-                       movie['age_limit'] == selected_age_limit and
-                       (selected_country == 'Россия' and movie['country'] == 'Россия' or
-                        selected_country == 'Не Россия' and movie['country'] != 'Россия')
-                       ]
+    filtered_list_of_films = get_filtered_films(genre)
 
-    if filtered_movies:
-        random_movie = random.choice(filtered_movies)
+    if filtered_list_of_films:
+        random_movie = random.choice(filtered_list_of_films)
+        name = random_movie.name_ru
+        length = random_movie.film_length
+        opisanie = random_movie.description
+        poster = random_movie.poster_url
+        serial = random_movie.serial
+        ongoing = random_movie.completed
+
         return render_template('random_movie.html', movie=random_movie)
     else:
         return render_template('no_results.html')
