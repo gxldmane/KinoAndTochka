@@ -1,27 +1,35 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Выбор фильма</title>
-	</head>
-	<body>
-		<h1>Выберите жанр и теги фильма:</h1>
-		<form action="/random_movie" method="post">
-			<label for="genre">Жанр:</label>
-			<select id="genre" name="genre">
-				<option value="драма">Драма</option>
-				<option value="комедия">Комедия</option>
-				<option value="фантастика">Фантастика</option>
-			</select>
-			<br />
-			<label for="tags">Теги:</label>
-			<input type="checkbox" id="tag1" name="tags" value="тег1" />
-			<label for="tag1">Тег 1</label>
-			<input type="checkbox" id="tag2" name="tags" value="тег2" />
-			<label for="tag2">Тег 2</label>
-			<input type="checkbox" id="tag3" name="tags" value="тег3" />
-			<label for="tag3">Тег 3</label>
-			<br />
-			<input type="submit" value="Показать случайный фильм" />
-		</form>
-	</body>
-</html>
+<form action="/random_movie" method="post">
+    <label for="genre">Жанр:</label>
+    <select id="genre" name="genre">
+        <option value="драма">Драма</option>
+        <option value="комедия">Комедия</option>
+        <option value="фантастика">Фантастика</option>
+    </select>
+    <br />
+    <label for="duration">Длительность:</label>
+    <select id="duration" name="duration">
+        <option value="short">Короткий</option>
+        <option value="long">Длинный</option>
+    </select>
+    <br />
+    <label for="novelty">Новизна:</label>
+    <select id="novelty" name="novelty">
+        <option value="old">Старый (до 2010)</option>
+        <option value="new">Новый (после 2010)</option>
+    </select>
+    <br />
+    <label for="age_limit">Возрастные ограничения:</label>
+    <select id="age_limit" name="age_limit">
+        <option value="12+">12+</option>
+        <option value="16+">16+</option>
+        <option value="18+">18+</option>
+    </select>
+    <br />
+    <label for="country">Страна съемки:</label>
+    <select id="country" name="country">
+        <option value="Россия">Россия</option>
+        <option value="Не Россия">Не Россия</option>
+    </select>
+    <br />
+    <input type="submit" value="Показать случайный фильм" />
+</form>
