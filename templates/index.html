@@ -1,35 +1,60 @@
-<form action="/random_movie" method="post">
-    <label for="genre">Жанр:</label>
-    <select id="genre" name="genre">
-        <option value="драма">Драма</option>
-        <option value="комедия">Комедия</option>
-        <option value="фантастика">Фантастика</option>
-    </select>
-    <br />
-    <label for="duration">Длительность:</label>
-    <select id="duration" name="duration">
-        <option value="short">Короткий</option>
-        <option value="long">Длинный</option>
-    </select>
-    <br />
-    <label for="novelty">Новизна:</label>
-    <select id="novelty" name="novelty">
-        <option value="old">Старый (до 2010)</option>
-        <option value="new">Новый (после 2010)</option>
-    </select>
-    <br />
-    <label for="age_limit">Возрастные ограничения:</label>
-    <select id="age_limit" name="age_limit">
-        <option value="12+">12+</option>
-        <option value="16+">16+</option>
-        <option value="18+">18+</option>
-    </select>
-    <br />
-    <label for="country">Страна съемки:</label>
-    <select id="country" name="country">
-        <option value="Россия">Россия</option>
-        <option value="Не Россия">Не Россия</option>
-    </select>
-    <br />
-    <input type="submit" value="Показать случайный фильм" />
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Movie Generator</title>
+</head>
+<body>
+    <h1>Random Movie Generator</h1>
+    <form action="/random_movie" method="post">
+        <label for="genre">Select a genre:</label>
+        <select id="genre" name="genre">
+            <option value="триллер">триллер</option>
+            <option value="драма">драма</option>
+            <option value="криминал">криминал</option>
+            <option value="мелодрама">мелодрама</option>
+            <option value="детектив">детектив</option>
+            <option value="фантастика">фантастика</option>
+            <option value="приключения">приключения</option>
+            <option value="биография">биография</option>
+            <option value="фильм-нуар">фильм-нуар</option>
+            <option value="вестерн">вестерн</option>
+            <option value="боевик">боевик</option>
+            <option value="фэнтези">фэнтези</option>
+            <option value="комедия">комедия</option>
+            <option value="военный">военный</option>
+            <option value="история">история</option>
+            <option value="музыка">музыка</option>
+            <option value="ужасы">ужасы</option>
+            <option value="мультфильм">мультфильм</option>
+            <option value="семейный">семейный</option>
+            <option value="мюзикл">мюзикл</option>
+            <option value="спорт">спорт</option>
+            <option value="документальный">документальный</option>
+            <option value="короткометражка">короткометражка</option>
+            <option value="аниме">аниме</option>
+            <option value=""></option>
+            <option value="новости">новости</option>
+            <option value="концерт">концерт</option>
+            <option value="для взрослых">для взрослых</option>
+            <option value="церемония">церемония</option>
+            <option value="реальное ТВ">реальное ТВ</option>
+            <option value="игра">игра</option>
+            <option value="ток-шоу">ток-шоу</option>
+            <option value="детский">детский</option>
+        </select>
+        <br>
+        <label for="is_series">'Это сериал?'</label>
+        <input type="checkbox" id="is_series" name="is_series" value="on">
+        <br>
+        <label for="is_series">Сериал закончен?(Относится только к сериалам, фильмы все закончены)</label>
+        <input type="checkbox" id="ongoing" name="ongoing" value="on">
+        <br>
+        <label for="rating_from">Рейтинг от:</label>
+        <input type="number" id="rating_from" name="rating_from" min="0" max="10" step="1">
+        <br>
+        <label for="rating_to">Рейтинг до:</label>
+        <input type="number" id="rating_to" name="rating_to" min="0" max="10" step="1">
+        <button type="submit">Generate Random Movie</button>
+    </form>
+</body>
+</html>
