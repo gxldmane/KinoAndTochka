@@ -6,7 +6,7 @@ from kinopoisk_unofficial.request.films.film_search_by_filters_request import Fi
 from kinopoisk_unofficial.request.films.film_request import FilmRequest
 
 app = Flask(__name__)
-api_client = KinopoiskApiClient("47f5ff85-d969-4383-a8c5-59d3026b6696")
+api_client = KinopoiskApiClient("a134307f-a5af-42ac-a8b0-befee7d95d53")
 
 genres_maps = {
     "триллер": 1,
@@ -46,7 +46,7 @@ genres_maps = {
 
 film_cache = {}  # Кэш для сохранения результатов запросов к API
 
-def get_filtered_films(genre_id,rating_from,rating_to):
+def get_filtered_films(genre_id,rating_from,rating_to,year_from,year_to):
     if genre_id in film_cache:
         filtered_list_of_films = film_cache[genre_id]
     else:
@@ -56,6 +56,9 @@ def get_filtered_films(genre_id,rating_from,rating_to):
         film_request.add_genre(FilterGenre(genre_id, ""))
         film_request.rating_from = rating_from
         film_request.rating_to = rating_to
+        film_request.year_from = year_from
+        film_request.year_to = year_to
+
 
         response = api_client.films.send_film_search_by_filters_request(film_request)
         result = response.items
@@ -98,10 +101,12 @@ def random_movie():
         ongoing='off'
     rating_from = int(request.form.get('rating_from',0))
     rating_to =int(request.form.get('rating_to', 10))
+    year_from=int(request.form.get('year_from',1959))
+    year_to=int(request.form.get('year_to',2023))
 
     if genre in genres_maps:
         genre_id = genres_maps[genre]
-        filtered_list_of_films = get_filtered_films(genre_id, rating_from, rating_to)
+        filtered_list_of_films = get_filtered_films(genre_id, rating_from, rating_to,year_from,year_to)
 
 
         if is_series == 'on':
@@ -115,7 +120,8 @@ def random_movie():
                 filtered_list_of_films = [film for film in filtered_list_of_films if not film.serial or film.completed]
             elif ongoing == 'off':
                 filtered_list_of_films = [film for film in filtered_list_of_films if not film.serial or not film.completed]
-        filtered_list_of_films = [film for film in filtered_list_of_films if film.rating_kinopoisk and rating_from < float(film.rating_kinopoisk) < float(rating_to)]
+        filtered_list_of_films = [film for film in filtered_list_of_films if film.rating_kinopoisk and ((rating_from <= float(film.rating_kinopoisk)) and ((film.rating_kinopoisk)<= float(rating_to)))]
+        filtered_list_of_films=[film for film in filtered_list_of_films if (year_from<=film.year<=year_to)]
 
         if filtered_list_of_films:
             random_movie = random.choice(filtered_list_of_films)
