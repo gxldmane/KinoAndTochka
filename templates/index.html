@@ -4,9 +4,9 @@
     <title>Random Movie Generator</title>
 </head>
 <body>
-    <h1>Random Movie Generator</h1>
+    <h1>Рандомный генератор фильмов</h1>
     <form action="/random_movie" method="post">
-        <label for="genre">Select a genre:</label>
+        <label for="genre">Выберите жанр:</label>
         <select id="genre" name="genre">
             <option value="триллер">триллер</option>
             <option value="драма">драма</option>
@@ -54,7 +54,13 @@
         <br>
         <label for="rating_to">Рейтинг до:</label>
         <input type="number" id="rating_to" name="rating_to" min="0" max="10" step="1">
-        <button type="submit">Generate Random Movie</button>
+        <br>
+        <label for="rating_from">Год от:</label>
+        <input type="number" id="year_from" name="year_from" min="1959" max="2023" step="1">
+        <br>
+        <label for="rating_to">Год до:</label>
+        <input type="number" id="year_to" name="year_to" min="1959" max="2023" step="1">
+        <button type="submit">!Сгенерировать рандомный фильм!</button>
     </form>
 </body>
 </html>
