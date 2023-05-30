@@ -5,12 +5,13 @@
 </head>
 <body>
     <h1>{{ movie.name_ru }}</h1>
-    <p><strong>Длина:</strong> {{ movie.film_length }}</p>
+    <p><strong>Длина:</strong> {{ movie.film_length }} мин.</p>
     <p><strong>Описание:</strong> {{ movie.description }}</p>
     <p><strong>Постер:</strong></p>
     <img src="{{ movie.poster_url }}" alt="Movie Poster">
     <p><strong>Сериал:</strong> {{ movie.serial }}</p>
     <p><strong>Закончен:</strong> {{ movie.completed }}</p>
     <p><strong>Рейтинг:</strong>{{movie.rating_kinopoisk}}.</p>
+    <p><strong>Год выпуска:</strong>{{ movie.year }}</p>
 </body>
 </html>
