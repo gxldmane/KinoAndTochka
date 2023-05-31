@@ -4,9 +4,13 @@ from kinopoisk_unofficial.kinopoisk_api_client import KinopoiskApiClient
 from kinopoisk_unofficial.model.filter_genre import FilterGenre
 from kinopoisk_unofficial.request.films.film_search_by_filters_request import FilmSearchByFiltersRequest
 from kinopoisk_unofficial.request.films.film_request import FilmRequest
+from kinopoisk_unofficial.kinopoisk_api_client import KinopoiskApiClient
+from kinopoisk_unofficial.model.filter_country import FilterCountry
+from kinopoisk_unofficial.model.filter_order import FilterOrder
+from kinopoisk_unofficial.request.films.film_search_by_filters_request import FilmSearchByFiltersRequest
 
 app = Flask(__name__)
-api_client = KinopoiskApiClient("a134307f-a5af-42ac-a8b0-befee7d95d53")
+api_client = KinopoiskApiClient("24218a6d-e4a1-4a18-8d01-92a3b6750ee4")
 
 genres_maps = {
     "триллер": 1,
@@ -46,42 +50,31 @@ genres_maps = {
 
 film_cache = {}  # Кэш для сохранения результатов запросов к API
 
-def get_filtered_films(genre_id,rating_from,rating_to,year_from,year_to):
-    if genre_id in film_cache:
-        filtered_list_of_films = film_cache[genre_id]
-    else:
-        film_request = FilmSearchByFiltersRequest()
-        if film_request.genres:
-            film_request.genres = []
-        film_request.add_genre(FilterGenre(genre_id, ""))
-        film_request.rating_from = rating_from
-        film_request.rating_to = rating_to
-        film_request.year_from = year_from
-        film_request.year_to = year_to
+def get_filtered_films(genre_id, rating_from, rating_to, year_from, year_to):
+    film_request = FilmSearchByFiltersRequest()
+    if film_request.genres:
+        film_request.genres = []
+    film_request.add_genre(FilterGenre(genre_id, ""))
+    film_request.rating_from = rating_from
+    film_request.rating_to = rating_to
+    film_request.year_from = year_from
+    film_request.year_to = year_to
+    film_request.order=FilterOrder.RATING
+    response = api_client.films.send_film_search_by_filters_request(film_request)
+    result = response.items
 
+    filtered_list_of_films = []
 
-        response = api_client.films.send_film_search_by_filters_request(film_request)
-        result = response.items
-
-        filtered_list_of_films = []
-
-        for i in result:
-            film = get_film_details(i.kinopoisk_id)
-            filtered_list_of_films.append(film)
-
-        film_cache[genre_id] = filtered_list_of_films
+    for i in result:
+        film = get_film_details(i.kinopoisk_id)
+        filtered_list_of_films.append(film)
 
     return filtered_list_of_films
 
 def get_film_details(kinopoisk_id):
-    if kinopoisk_id in film_cache:
-        film = film_cache[kinopoisk_id]
-    else:
-        film_request = FilmRequest(kinopoisk_id)
-        response_film = api_client.films.send_film_request(film_request)
-        film = response_film.film
-
-        film_cache[kinopoisk_id] = film
+    film_request = FilmRequest(kinopoisk_id)
+    response_film = api_client.films.send_film_request(film_request)
+    film = response_film.film
 
     return film
 
@@ -93,21 +86,20 @@ def index():
 @app.route('/random_movie', methods=['POST'])
 def random_movie():
     genre = request.form.get('genre')
-    is_series=request.form.get('is_series')
+    is_series = request.form.get('is_series')
     if is_series is None:
-        is_series='off'
+        is_series = 'off'
     ongoing = request.form.get('ongoing')
     if ongoing is None:
-        ongoing='off'
-    rating_from = int(request.form.get('rating_from',0))
-    rating_to =int(request.form.get('rating_to', 10))
-    year_from=int(request.form.get('year_from',1959))
-    year_to=int(request.form.get('year_to',2023))
+        ongoing = 'off'
+    rating_from = int(request.form.get('rating_from', 0))
+    rating_to = int(request.form.get('rating_to', 10))
+    year_from = int(request.form.get('year_from', 1959))
+    year_to = int(request.form.get('year_to', 2023))
 
     if genre in genres_maps:
         genre_id = genres_maps[genre]
-        filtered_list_of_films = get_filtered_films(genre_id, rating_from, rating_to,year_from,year_to)
-
+        filtered_list_of_films = get_filtered_films(genre_id, rating_from, rating_to, year_from, year_to)
 
         if is_series == 'on':
             filtered_list_of_films = [film for film in filtered_list_of_films if film.serial]
