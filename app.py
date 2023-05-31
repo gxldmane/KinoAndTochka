@@ -48,7 +48,6 @@ genres_maps = {
     "детский": 33
 }
 
-film_cache = {}  # Кэш для сохранения результатов запросов к API
 
 def get_filtered_films(genre_id, rating_from, rating_to, year_from, year_to):
     film_request = FilmSearchByFiltersRequest()
