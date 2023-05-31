@@ -9,10 +9,9 @@
     <p><strong>Описание:</strong> {{ movie.description }}</p>
     <p><strong>Постер:</strong></p>
     <img src="{{ movie.poster_url }}" alt="Movie Poster">
-    <p><strong>Сериал:</strong> {{ movie.serial }}</p>
-    <p><strong>Закончен:</strong> {{ movie.completed }}</p>
-    <p><strong>Рейтинг Кинопоиска:</strong>{{movie.rating_kinopoisk}}.</p>
-    <p><strong>Рейтинг imdb:</strong>{{movie.rating_imdb}}.</p>
-    <p><strong>Год выпуска:</strong>{{ movie.year }}</p>
+    <p><strong>Сериал:</strong> {% if movie.serial %}Да{% else %}Нет{% endif %}</p>
+    <p><strong>Рейтинг Кинопоиска:</strong> {{ movie.rating_kinopoisk or '-' }}.</p>
+    <p><strong>Рейтинг imdb:</strong> {{ movie.rating_imdb or '-' }}.</p>
+    <p><strong>Год выпуска:</strong> {{ movie.year }}</p>
 </body>
 </html>
