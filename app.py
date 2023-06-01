@@ -8,7 +8,7 @@ loaded_objects = []
 
 # Загрузка данных из файла pickle
 def load_movies(genre=None):
-    with open('randomfilms.pickle', 'rb') as pickle_file:
+    with open('randomfilms2.pickle', 'rb') as pickle_file:
         while True:
             try:
                 obj = pickle.load(pickle_file)
@@ -20,7 +20,10 @@ def load_movies(genre=None):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    movie = None  # Добавляем переменную movie
+    if 'movie' in request.args:
+        movie = request.args['movie']
+    return render_template('index.html', movie=movie)  # Передаем переменную movie в шаблон
 
 
 @app.route('/random_movie', methods=['POST'])
@@ -55,9 +58,9 @@ def random_movie():
 
     if filtered_movies:
         random_movie = random.choice(filtered_movies)
-        return render_template('random_movie.html', movie=random_movie)
+        return render_template('index.html', movie=random_movie)  # Отправляем выбранный фильм в шаблон index.html
     else:
-        return render_template('no_results.html')
+        return render_template('index.html', movie=None)  # Отправляем None, если нет результатов
 
 
 if __name__ == '__main__':
