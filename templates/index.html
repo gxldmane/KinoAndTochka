@@ -57,6 +57,20 @@
         <br>
         <label for="rating_to">Год до:</label>
         <input type="number" id="year_to" name="year_to" min="1959" max="2023" step="1">
+        <br>
+        {% if movie %}
+        <h2>{{ movie.name_ru }}</h2>
+        <p><strong>Длина:</strong> {{ movie.film_length }} мин.</p>
+        <p><strong>Описание:</strong> {{ movie.description }}</p>
+        <p><strong>Постер:</strong></p>
+        <img src="{{ movie.poster_url }}" alt="Movie Poster">
+        <p><strong>Сериал:</strong> {{ "Да" if movie.serial else "Нет" }}</p>
+        <p><strong>Рейтинг Кинопоиска:</strong> {{ movie.rating_kinopoisk or "-" }}</p>
+        <p><strong>Рейтинг IMDb:</strong> {{ movie.rating_imdb or "-" }}</p>
+        <p><strong>Год выпуска:</strong> {{ movie.year }}</p>
+    {% else %}
+        <p>Фильмы, соответствующие вашим критериям, не найдены.</p>
+    {% endif %}
         <button type="submit">!Сгенерировать рандомный фильм!</button>
     </form>
 </body>
