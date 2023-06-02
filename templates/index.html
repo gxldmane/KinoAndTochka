@@ -66,7 +66,7 @@
             <div class="posterFilm">
                 <img src="{{ movie.poster_url }}" alt="Movie Poster" class="posterFilm_img">
                 <div class="posterFilm__info">
-                    <h2 class="posterFilm__info_title">{{ movie.name_ru }}</h2>
+                    <div class="posterFilm__info_title">{{ movie.name_ru }}</div>
                     <div class="posterFilm__info__brief">
                         <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.serial else "Фильм" }}</div>
                         <div class="posterFilm__info__brief_block">{{ movie.film_length }} мин</div>
