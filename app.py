@@ -45,14 +45,14 @@ def random_movie():
                     if (
                         j.rating_kinopoisk is not None
                         and rating_from <= j.rating_kinopoisk <= rating_to
-                        and year_from <= j.year <= year_to
+                        and j.year is not None and year_from <= j.year <= year_to
                     ):
                         filtered_movies.append(j)
                 elif is_series != 'on' and not j.serial:
                     if (
                         j.rating_kinopoisk is not None
                         and rating_from <= j.rating_kinopoisk <= rating_to
-                        and year_from <= j.year <= year_to
+                        and j.year is not None and year_from <= j.year <= year_to
                     ):
                         filtered_movies.append(j)
 
