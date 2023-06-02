@@ -2,10 +2,10 @@ from flask import Flask, render_template, request
 import random
 import pickle
 
+
 app = Flask(__name__)
 
 loaded_objects = []
-
 # Загрузка данных из файла pickle
 def load_movies(genre=None):
     with open('randomfilms2.pickle', 'rb') as pickle_file:
