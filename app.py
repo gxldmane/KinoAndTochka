@@ -30,9 +30,9 @@ def index():
 def random_movie():
     select_genre = request.form.get('genre')
     is_series = request.form.get('is_series')
-    rating_from = float(request.form.get('rating_from') or 0)
+    rating_from = float(request.form.get('rating_from') or 7)
     rating_to = float(request.form.get('rating_to') or 10)
-    year_from = int(request.form.get('year_from') or 1959)
+    year_from = int(request.form.get('year_from') or 1984)
     year_to = int(request.form.get('year_to') or 2023)
 
     loaded_objects = load_movies()
