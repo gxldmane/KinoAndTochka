@@ -143,6 +143,7 @@ input {
 .posterFilm__info_title {
     font-size: 48px;
     font-weight: 700;
+    line-height: 1.2;
 }
 
 .posterFilm__info__brief_block {
