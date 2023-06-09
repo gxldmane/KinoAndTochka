@@ -44,8 +44,38 @@
                     <option value="аниме">аниме</option>
                 </select>
             </div>
+            <div><label for="genre2">Жанр: </label>
+                <select id="genre2" name="genre2">
+                    <option value="триллер">триллер</option>
+                    <option value="драма">драма</option>
+                    <option value="криминал">криминал</option>
+                    <option value="мелодрама">мелодрама</option>
+                    <option value="детектив">детектив</option>
+                    <option value="фантастика">фантастика</option>
+                    <option value="приключения">приключения</option>
+                    <option value="биография">биография</option>
+                    <option value="фильм-нуар">фильм-нуар</option>
+                    <option value="вестерн">вестерн</option>
+                    <option value="боевик">боевик</option>
+                    <option value="фэнтези">фэнтези</option>
+                    <option value="комедия">комедия</option>
+                    <option value="военный">военный</option>
+                    <option value="история">история</option>
+                    <option value="музыка">музыка</option>
+                    <option value="ужасы">ужасы</option>
+                    <option value="мультфильм">мультфильм</option>
+                    <option value="семейный">семейный</option>
+                    <option value="мюзикл">мюзикл</option>
+                    <option value="спорт">спорт</option>
+                    <option value="документальный">документальный</option>
+                    <option value="короткометражка">короткометражка</option>
+                    <option value="аниме">аниме</option>
+                </select>
+            </div>
             <div><label for="is_series">Сериал: </label>
                 <input type="checkbox" id="is_series" name="is_series" value="on"></div>
+            <div><label for="is_russia">Фильм отечественный: </label>
+                <input type="checkbox" id="is_russia" name="is_russia" value="on"></div>
             <div class="form__rating">
                 <label for="rating_from">Рейтинг от:</label>
                 <input type="number" id="rating_from" name="rating_from" min="0" max="10" step="1">
@@ -64,19 +94,20 @@
     {% if movie %}
         <div class="posterFilm">
             <div class="posterFilm__wrapper container">
-                <img src="{{ movie.poster_url }}" alt="Movie Poster" class="posterFilm_img">
+                <img src="{{ movie.poster }}" alt="Movie Poster" class="posterFilm_img">
                 <div class="posterFilm__info">
-                    <div class="posterFilm__info_title">{{ movie.name_ru }}</div>
+                    <div class="posterFilm__info_title">{{ movie.name }}</div>
                     <div class="posterFilm__info__brief">
-                        <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.serial else "Фильм" }}</div>
+                        <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.is_serial else "Фильм" }}</div>
                         <div class="posterFilm__info__brief_block">{{ movie.film_length }} мин</div>
-                        <div class="posterFilm__info__brief_block">{{ movie.year }}</div>
+                        <div class="posterFilm__info__brief_block">{{ movie.year_of_film }}</div>
                     </div>
                     <div class="posterFilm__info__rating">
                         <div class="posterFilm__info__rating_text">Рейтинг Кинопоиска: {{ movie.rating_kinopoisk or "-" }}</div>
                         <div class="posterFilm__info__rating_text">Рейтинг IMDb: {{ movie.rating_imdb or "-" }}</div>
                     </div>
                     <div class="posterFilm__info__description"><span class="bold">Описание:</span> {{ movie.description }}</div>
+                    <div class="posterFilm__info__kinopoisk"><a href="{{ movie.web_url }}"> КИНОПОИСК </a></div>
                 </div>
             </div>
         </div>
@@ -85,15 +116,5 @@
             <p>Фильмы, соответствующие вашим критериям, не найдены.</p>
         </div>
     {% endif %}
-    <footer class="footer">
-        <div class="footer__wrapper container">
-            <ul>
-                <li>Фильмы</li>
-                <li>Сериалы</li>
-                <li>Что посмотреть?</li>
-            </ul>
-            <div>©2023, Кино и Точка</div>
-        </div>
-    </footer>
 </body>
 </html>
