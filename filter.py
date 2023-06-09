@@ -43,7 +43,6 @@ def filtered_films(genre, genre2, is_series=False, is_russia=False, rating_from=
         description = row[9]
         is_serial = bool(row[10])
 
-        print(is_series)
         film = Film(name, genres, countries, poster, rating_kinopoisk, rating_imdb, year_of_film, film_length, web_url, description, is_serial)
         if genre in film.genres and genre2 in film.genres:
             if is_series=='on' and film.is_serial:
