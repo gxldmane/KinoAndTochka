@@ -106,7 +106,7 @@
                         <div class="posterFilm__info__rating_text">Рейтинг Кинопоиска: {{ movie.rating_kinopoisk or "-" }}</div>
                         <div class="posterFilm__info__rating_text">Рейтинг IMDb: {{ movie.rating_imdb or "-" }}</div>
                     </div>
-                    <div class="posterFilm__info__description"><span class="bold">Описание:</span> {{ movie.description }}</div>
+                    <div class="posterFilm__info__description"><span class="bold">Описание:</span> {{ movie.description if movie.description else "Описание отсутствует" }}</div>
                     <div class="posterFilm__info__kinopoisk"><a href="{{ movie.web_url }}"> КИНОПОИСК </a></div>
                 </div>
             </div>
