@@ -99,7 +99,7 @@
                     <div class="posterFilm__info_title">{{ movie.name }}</div>
                     <div class="posterFilm__info__brief">
                         <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.is_serial else "Фильм" }}</div>
-                        <div class="posterFilm__info__brief_block">{{ movie.film_length }} мин</div>
+                        <div class="posterFilm__info__brief_block">{{ movie.film_length if movie.film_length else "-"   }} мин</div>
                         <div class="posterFilm__info__brief_block">{{ movie.year_of_film }}</div>
                     </div>
                     <div class="posterFilm__info__rating">
