@@ -1,21 +1,8 @@
 from flask import Flask, render_template, request
 import random
-import pickle
-
+from filter import filtered_films
 
 app = Flask(__name__)
-
-loaded_objects = []
-# Загрузка данных из файла pickle
-def load_movies(genre=None):
-    with open('randomfilms2.pickle', 'rb') as pickle_file:
-        while True:
-            try:
-                obj = pickle.load(pickle_file)
-                loaded_objects.append(obj)
-            except EOFError:
-                break
-    return loaded_objects
 
 
 @app.route('/')
@@ -28,33 +15,16 @@ def index():
 
 @app.route('/random_movie', methods=['POST'])
 def random_movie():
-    select_genre = request.form.get('genre')
+    genre = request.form.get('genre')
+    genre2 = request.form.get('genre2')
     is_series = request.form.get('is_series')
+    is_russia = request.form.get('is_russia')
     rating_from = float(request.form.get('rating_from') or 7)
     rating_to = float(request.form.get('rating_to') or 10)
     year_from = int(request.form.get('year_from') or 1984)
     year_to = int(request.form.get('year_to') or 2023)
 
-    loaded_objects = load_movies()
-    filtered_movies = []
-
-    for movie in loaded_objects:
-        for j in movie:
-            if select_genre in [genre.genre for genre in j.genres]:
-                if is_series == 'on' and j.serial:
-                    if (
-                        j.rating_kinopoisk is not None
-                        and rating_from <= j.rating_kinopoisk <= rating_to
-                        and j.year is not None and year_from <= j.year <= year_to
-                    ):
-                        filtered_movies.append(j)
-                elif is_series != 'on' and not j.serial:
-                    if (
-                        j.rating_kinopoisk is not None
-                        and rating_from <= j.rating_kinopoisk <= rating_to
-                        and j.year is not None and year_from <= j.year <= year_to
-                    ):
-                        filtered_movies.append(j)
+    filtered_movies = filtered_films(genre, genre2, is_series, is_russia, rating_from, rating_to, year_from, year_to)
 
     if filtered_movies:
         random_movie = random.choice(filtered_movies)
