@@ -21,7 +21,7 @@
                 <h1 class="header__info_title">Сервис по подбору фильмов и сериалов </h1>
                 <p class="header__info_description">Добро пожаловать на наш сайт по подбору фильмов и сериалов! Мы делаем все возможное, чтобы упростить процесс выбора интересного контента для каждого нашего пользователя. У нас вы найдете огромную базу данных фильмов и сериалов. С помощью нашего сервиса вы можете быстро и легко найти нужный вам фильм или сериал, используя различные критерии, такие как жанр, рейтинг, год выпуска и многое другое.</p>
                 <a href="#form" class="headr__find-button find-button">Подобрать</a>
-            </div>     
+            </div>
     </header>
     <form action="/random_movie" method="post" class="form" id="form">
         <div class="form__wrapper container">
@@ -140,19 +140,19 @@
                 <div>
                     <input type="checkbox" id="is_russia" name="is_russia" value="on">
                     <label for="is_russia"><span></span>Отечественный</label>
-                </div>   
+                </div>
             </div>
-            <button type="submit" class="form__find-button find-button" id="find-button">Подобрать</button>
+            <button type="submit" class="form__find-button find-button" id="find-button"><a href="#posterFim">Подобрать</a></button>
         </div>
     </form>
     {% if request.method == 'POST' %}
         {% if movie %}
-            <script>
-                document.querySelector('posterFilm').scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            </script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var filmSection = document.getElementById("posterFilm");
+                filmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        </script>
             <div class="posterFilm" id="posterFilm">
                 <div class="posterFilm__wrapper container">
                     <div class="posterFilm__img__wrapper">
@@ -161,6 +161,7 @@
                     <div class="posterFilm__info">
                         <div class="posterFilm__info__wrapper">
                             <div class="posterFilm__info_title">{{ movie.name }}</div>
+
                             <div class="posterFilm__info__brief">
                                 <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.is_serial else "Фильм" }}</div>
                                 <div class="posterFilm__info__brief_block">{{ movie.film_length if movie.film_length else "-"   }} мин</div>
@@ -171,11 +172,11 @@
                                 <div class="posterFilm__info__rating__block">
                                     <a href="{{ movie.web_url }}" class="reting__block_kinopoisk">
                                         <img src="../static/img/kinopoisk.svg" alt="kinopoisk">
-                                    </a> 
+                                    </a>
                                     <p>{{ movie.rating_kinopoisk or "-" }}</p>
                                 </div>
                                 <div class="posterFilm__info__rating__block">
-                                    <span class="reting__block_IMDb">IMDb</span> 
+                                    <span class="reting__block_IMDb">IMDb</span>
                                     <p>{{ movie.rating_imdb or "-" }}</p>
                                 </div>
                             </div>
