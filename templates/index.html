@@ -142,12 +142,18 @@
                     <label for="is_russia"><span></span>Отечественный</label>
                 </div>   
             </div>
-            <button type="submit" class="form__find-button find-button">Подобрать</button>
+            <button type="submit" class="form__find-button find-button" id="find-button"><a href="#posterFim">Подобрать</a></button>
         </div>
     </form>
     {% if request.method == 'POST' %}
         {% if movie %}
-            <div class="posterFilm">
+            <script>
+                document.querySelector('posterFilm').scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            </script>
+            <div class="posterFilm" id="posterFilm">
                 <div class="posterFilm__wrapper container">
                     <div class="posterFilm__img__wrapper">
                         <img src="{{ movie.poster }}" alt="Movie Poster" class="posterFilm_img">
@@ -185,7 +191,7 @@
             </script>
         {% endif %}
     {% endif %}
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="footer__wrapper container">
             <ul class="footer__info">
                 <li><a href="#" class="footer__info__link">Реклама</a></li>
