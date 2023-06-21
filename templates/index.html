@@ -5,117 +5,197 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кино и Точка</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <header class="header">
         <div class="header__wrapper container">
-            <div class="header_logo">Кино&Точка</div>
-        </div>
+            <div class="header__logo">
+                Кино & Точка
+            </div>
+            <div class="header__info">
+                <h1 class="header__info_title">Сервис по подбору фильмов и сериалов </h1>
+                <p class="header__info_description">Добро пожаловать на наш сайт по подбору фильмов и сериалов! Мы делаем все возможное, чтобы упростить процесс выбора интересного контента для каждого нашего пользователя. У нас вы найдете огромную базу данных фильмов и сериалов. С помощью нашего сервиса вы можете быстро и легко найти нужный вам фильм или сериал, используя различные критерии, такие как жанр, рейтинг, год выпуска и многое другое.</p>
+                <a href="#form" class="headr__find-button find-button">Подобрать</a>
+            </div>     
     </header>
-    <form action="/random_movie" method="post" class="form">
+    <form action="/random_movie" method="post" class="form" id="form">
         <div class="form__wrapper container">
-            <div><label for="genre">Жанр: </label>
-                <select id="genre" name="genre">
-                    <option value="триллер">триллер</option>
-                    <option value="драма">драма</option>
-                    <option value="криминал">криминал</option>
-                    <option value="мелодрама">мелодрама</option>
-                    <option value="детектив">детектив</option>
-                    <option value="фантастика">фантастика</option>
-                    <option value="приключения">приключения</option>
-                    <option value="биография">биография</option>
-                    <option value="фильм-нуар">фильм-нуар</option>
-                    <option value="вестерн">вестерн</option>
-                    <option value="боевик">боевик</option>
-                    <option value="фэнтези">фэнтези</option>
-                    <option value="комедия">комедия</option>
-                    <option value="военный">военный</option>
-                    <option value="история">история</option>
-                    <option value="музыка">музыка</option>
-                    <option value="ужасы">ужасы</option>
-                    <option value="мультфильм">мультфильм</option>
-                    <option value="семейный">семейный</option>
-                    <option value="мюзикл">мюзикл</option>
-                    <option value="спорт">спорт</option>
-                    <option value="документальный">документальный</option>
-                    <option value="короткометражка">короткометражка</option>
-                    <option value="аниме">аниме</option>
-                </select>
-            </div>
-            <div><label for="genre2">Жанр: </label>
-                <select id="genre2" name="genre2">
-                    <option value="триллер">триллер</option>
-                    <option value="драма">драма</option>
-                    <option value="криминал">криминал</option>
-                    <option value="мелодрама">мелодрама</option>
-                    <option value="детектив">детектив</option>
-                    <option value="фантастика">фантастика</option>
-                    <option value="приключения">приключения</option>
-                    <option value="биография">биография</option>
-                    <option value="фильм-нуар">фильм-нуар</option>
-                    <option value="вестерн">вестерн</option>
-                    <option value="боевик">боевик</option>
-                    <option value="фэнтези">фэнтези</option>
-                    <option value="комедия">комедия</option>
-                    <option value="военный">военный</option>
-                    <option value="история">история</option>
-                    <option value="музыка">музыка</option>
-                    <option value="ужасы">ужасы</option>
-                    <option value="мультфильм">мультфильм</option>
-                    <option value="семейный">семейный</option>
-                    <option value="мюзикл">мюзикл</option>
-                    <option value="спорт">спорт</option>
-                    <option value="документальный">документальный</option>
-                    <option value="короткометражка">короткометражка</option>
-                    <option value="аниме">аниме</option>
-                </select>
-            </div>
-            <div><label for="is_series">Сериал: </label>
-                <input type="checkbox" id="is_series" name="is_series" value="on"></div>
-            <div><label for="is_russia">Фильм отечественный: </label>
-                <input type="checkbox" id="is_russia" name="is_russia" value="on"></div>
-            <div class="form__rating">
-                <label for="rating_from">Рейтинг от:</label>
-                <input type="number" id="rating_from" name="rating_from" min="0" max="10" step="1">
-                <label for="rating_to">Рейтинг до:</label>
-                <input type="number" id="rating_to" name="rating_to" min="0" max="10" step="1">
-            </div>
-            <div class="form__date">
-                <label for="rating_from">Год от:</label>
-                <input type="number" id="year_from" name="year_from" min="1959" max="2023" step="1">
-                <label for="rating_to">Год до:</label>
-                <input type="number" id="year_to" name="year_to" min="1959" max="2023" step="1">
-            </div>
-            <button type="submit" class="form__generate"><p class="form__generate_text">Сгенерировать</p><span class="material-symbols-outlined form__generate_img">play_arrow</span></button>
-        </div>
-    </form>
-    {% if movie %}
-        <div class="posterFilm">
-            <div class="posterFilm__wrapper container">
-                <img src="{{ movie.poster }}" alt="Movie Poster" class="posterFilm_img">
-                <div class="posterFilm__info">
-                    <div class="posterFilm__info_title">{{ movie.name }}</div>
-                    <div class="posterFilm__info__brief">
-                        <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.is_serial else "Фильм" }}</div>
-                        <div class="posterFilm__info__brief_block">{{ movie.film_length if movie.film_length else "-"   }} мин</div>
-                        <div class="posterFilm__info__brief_block">{{ movie.year_of_film }}</div>
-                        <div class="posterFilm__info__brief_block">{{ movie.countries[0]}}</div>
-                    </div>
-                    <div class="posterFilm__info__rating">
-                        <div class="posterFilm__info__rating_text">Рейтинг Кинопоиска: {{ movie.rating_kinopoisk or "-" }}</div>
-                        <div class="posterFilm__info__rating_text">Рейтинг IMDb: {{ movie.rating_imdb or "-" }}</div>
-                    </div>
-                    <div class="posterFilm__info__description"><span class="bold">Описание:</span> {{ movie.description if movie.description else "Описание отсутствует" }}</div>
-                    <div class="posterFilm__info__kinopoisk"><a href="{{ movie.web_url }}"> КИНОПОИСК </a></div>
+            <div class="form__genre">
+                <div class="form__genre_title">Выберите два жанра</div>
+                <div class="form__genre_wrapper">
+                    <select id="genre" name="genre">
+                        <option value="триллер">Триллер</option>
+                        <option value="драма">Драма</option>
+                        <option value="криминал">Криминал</option>
+                        <option value="мелодрама">Мелодрама</option>
+                        <option value="детектив">Детектив</option>
+                        <option value="фантастика">фантастика</option>
+                        <option value="приключения">Приключения</option>
+                        <option value="биография">Биография</option>
+                        <option value="фильм-нуар">фильм-нуар</option>
+                        <option value="вестерн">Вестерн</option>
+                        <option value="боевик">Боевик</option>
+                        <option value="фэнтези">Фэнтези</option>
+                        <option value="комедия">Комедия</option>
+                        <option value="военный">Военный</option>
+                        <option value="история">История</option>
+                        <option value="музыка">Музыка</option>
+                        <option value="ужасы">Ужасы</option>
+                        <option value="мультфильм">Мультфильм</option>
+                        <option value="семейный">Семейный</option>
+                        <option value="мюзикл">Мюзикл</option>
+                        <option value="спорт">Спорт</option>
+                        <option value="документальный">Документальный</option>
+                        <option value="короткометражка">Короткометражка</option>
+                        <option value="аниме">Аниме</option>
+                    </select>
+                    <select id="genre2" name="genre2">
+                        <option value="триллер">Триллер</option>
+                        <option value="драма">Драма</option>
+                        <option value="криминал">Криминал</option>
+                        <option value="мелодрама">Мелодрама</option>
+                        <option value="детектив">Детектив</option>
+                        <option value="фантастика">фантастика</option>
+                        <option value="приключения">Приключения</option>
+                        <option value="биография">Биография</option>
+                        <option value="фильм-нуар">фильм-нуар</option>
+                        <option value="вестерн">Вестерн</option>
+                        <option value="боевик">Боевик</option>
+                        <option value="фэнтези">Фэнтези</option>
+                        <option value="комедия">Комедия</option>
+                        <option value="военный">Военный</option>
+                        <option value="история">История</option>
+                        <option value="музыка">Музыка</option>
+                        <option value="ужасы">Ужасы</option>
+                        <option value="мультфильм">Мультфильм</option>
+                        <option value="семейный">Семейный</option>
+                        <option value="мюзикл">Мюзикл</option>
+                        <option value="спорт">Спорт</option>
+                        <option value="документальный">Документальный</option>
+                        <option value="короткометражка">Короткометражка</option>
+                        <option value="аниме">Аниме</option>
+                    </select>
                 </div>
             </div>
+            <div class="form__date">
+                <div class="form__date_title">Год выхода</div>
+                <div class="price-input">
+                    <div class="field">
+                        <label for="year_from">от</label>
+                        <input   type="number"class="input-min" id="year_from" name="year_from" min="1959" max="2023" value="1984">
+                    </div>
+                    <div class="separator">-</div>
+                    <div class="field">
+                        <label for="year_to">до</label>
+                        <input   type="number"class="input-max" id="year_to" name="year_to" min="1959" max="2023" value="2023">
+                    </div>
+                </div>
+                <div class="slider">
+                    <div class="progress"></div>
+                </div>
+                <div class="range-input">
+                    <input type="range" class="range-min" min="1959" max="2023" value="1984" step="1">
+                    <input type="range" class="range-max" min="1959" max="2023" value="2023" step="1">
+                </div>
+            </div>
+            <div class="form__rating">
+                <div class="form__rating_title">Рейтинг</div>
+                <div class="price-input2">
+                    <div class="field">
+                        <label for="rating_from">от</label>
+                        <input   type="number"class="input-min" id="rating_from" name="rating_from" min="0" max="10" value="7">
+                    </div>
+                    <div class="separator">-</div>
+                    <div class="field">
+                        <label for="rating_to">до</label>
+                        <input   type="number"class="input-max" id="rating_to" name="rating_to" min="0" max="10" value="10">
+                    </div>
+                </div>
+                <div class="slider2">
+                    <div class="progress2"></div>
+                </div>
+                <div class="range-input2">
+                    <input type="range" class="range-min" min="0" max="10" value="7" step="1">
+                    <input type="range" class="range-max" min="0" max="10" value="10" step="1">
+                </div>
+            </div>
+            <div class="form__checkboxs">
+                <div>
+                    <input type="checkbox" id="is_film" name="is_film" value="on" checked>
+                    <label for="is_film"><span></span>Фильм</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="is_foreign" name="is_foreign" value="on">
+                    <label for="is_foreign"><span></span>Зарубежный </label>
+                </div>
+                <div>
+                    <input type="checkbox" id="is_series" name="is_series" value="on">
+                    <label for="is_series"><span></span>Сериал</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="is_russia" name="is_russia" value="on">
+                    <label for="is_russia"><span></span>Отечественный</label>
+                </div>   
+            </div>
+            <button type="submit" class="form__find-button find-button">Подобрать</button>
         </div>
-    {% else %}
-        <div class="container">
-            <p>Фильмы, соответствующие вашим критериям, не найдены.</p>
-        </div>
+    </form>
+    {% if request.method == 'POST' %}
+        {% if movie %}
+            <div class="posterFilm">
+                <div class="posterFilm__wrapper container">
+                    <div class="posterFilm__img__wrapper">
+                        <img src="{{ movie.poster }}" alt="Movie Poster" class="posterFilm_img">
+                    </div>
+                    <div class="posterFilm__info">
+                        <div class="posterFilm__info__wrapper">
+                            <div class="posterFilm__info_title">{{ movie.name }}</div>
+                            <div class="posterFilm__info__brief">
+                                <div class="posterFilm__info__brief_block">{{ "Сериал" if movie.is_serial else "Фильм" }}</div>
+                                <div class="posterFilm__info__brief_block">{{ movie.film_length if movie.film_length else "-"   }} мин</div>
+                                <div class="posterFilm__info__brief_block">{{ movie.year_of_film }}</div>
+                                <div class="posterFilm__info__brief_block">{{ movie.countries[0]}}</div>
+                            </div>
+                            <div class="posterFilm__info__rating">
+                                <div class="posterFilm__info__rating__block">
+                                    <a href="{{ movie.web_url }}" class="reting__block_kinopoisk">
+                                        <img src="../static/img/kinopoisk.svg" alt="kinopoisk">
+                                    </a> 
+                                    <p>{{ movie.rating_kinopoisk or "-" }}</p>
+                                </div>
+                                <div class="posterFilm__info__rating__block">
+                                    <span class="reting__block_IMDb">IMDb</span> 
+                                    <p>{{ movie.rating_imdb or "-" }}</p>
+                                </div>
+                            </div>
+                            <div class="posterFilm__info_title">Описание:</div>
+                            <div class="posterFilm__info__description"> {{ movie.description if movie.description else "Описание отсутствует" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <script>
+                alert("Фильмы, соответствующие вашим критериям, не найдены.")
+            </script>
+        {% endif %}
     {% endif %}
+    <footer class="footer">
+        <div class="footer__wrapper container">
+            <ul class="footer__info">
+                <li><a href="#" class="footer__info__link">Реклама</a></li>
+                <li><a href="#" class="footer__info__link">Условия использования</a></li>
+                <li><a href="#" class="footer__info__link">Контакты</a></li>
+                <li><a href="https://github.com/gxldmane/KinoAndTochka" class="footer__info_link"><img class="footer__info_git" src="../static/img/github.svg" alt="github"></a></li>
+            </ul>
+            <div class="footer__corporation">© 2023 , Кино и Точка</div>
+        </div>
+    </footer>
+    <script src="../static/sctrips.js"></script>
 </body>
 </html>
