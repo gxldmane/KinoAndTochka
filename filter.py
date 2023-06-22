@@ -44,7 +44,7 @@ def filtered_films(genre, genre2, is_series=False, is_russia=False, rating_from=
         is_serial = bool(row[10])
         film = Film(name, genres, countries, poster, rating_kinopoisk, rating_imdb, year_of_film, film_length, web_url, description, is_serial)
         if genre in film.genres and genre2 in film.genres:
-            if is_series == 'on' and is_film == 'on':  
+            if is_series == 'on' and is_film == 'on':
                 if (
                         film.rating_kinopoisk is not None
                         and rating_from <= film.rating_kinopoisk <= rating_to
@@ -56,6 +56,9 @@ def filtered_films(genre, genre2, is_series=False, is_russia=False, rating_from=
                         filter.append(film)
                     elif is_foreign and 'Россия' not in film.countries:
                         filter.append(film)
+                    elif not is_russia and not is_foreign:
+                        filter.append(film)
+
             elif is_series == 'on' and film.is_serial:
                 if (
                         film.rating_kinopoisk is not None
@@ -68,6 +71,8 @@ def filtered_films(genre, genre2, is_series=False, is_russia=False, rating_from=
                         filter.append(film)
                     elif is_foreign and 'Россия' not in film.countries:
                         filter.append(film)
+                    elif not is_russia and not is_foreign:
+                        filter.append(film)
             elif not film.is_serial and is_film == 'on':
                 if (
                         film.rating_kinopoisk is not None
@@ -79,6 +84,8 @@ def filtered_films(genre, genre2, is_series=False, is_russia=False, rating_from=
                     elif is_russia and 'Россия' in film.countries:
                         filter.append(film)
                     elif is_foreign and 'Россия' not in film.countries:
+                        filter.append(film)
+                    elif not is_russia and not is_foreign:
                         filter.append(film)
     conn.close()
     return filter
