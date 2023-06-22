@@ -87,6 +87,20 @@ def filtered_films(genre, genre2, is_series=False, is_russia=False, rating_from=
                         filter.append(film)
                     elif not is_russia and not is_foreign:
                         filter.append(film)
+            elif not film.is_serial and is_film != 'on':
+                if (
+                        film.rating_kinopoisk is not None
+                        and rating_from <= film.rating_kinopoisk <= rating_to
+                        and film.year_of_film is not None and year_from <= film.year_of_film <= year_to
+                ):
+                    if is_russia and is_foreign:
+                        filter.append(film)
+                    elif is_russia and 'Россия' in film.countries:
+                        filter.append(film)
+                    elif is_foreign and 'Россия' not in film.countries:
+                        filter.append(film)
+                    elif not is_russia and not is_foreign:
+                        filter.append(film)
     conn.close()
     return filter
 
