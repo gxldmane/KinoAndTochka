@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    movie = None  # Добавляем переменную movie
+    movie = None  
     if 'movie' in request.args:
         movie = request.args['movie']
     return render_template('index.html', movie=movie)  
