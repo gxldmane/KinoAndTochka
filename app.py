@@ -10,7 +10,7 @@ def index():
     movie = None  # Добавляем переменную movie
     if 'movie' in request.args:
         movie = request.args['movie']
-    return render_template('index.html', movie=movie)  # Передаем переменную movie в шаблон
+    return render_template('index.html', movie=movie)  
 
 
 @app.route('/random_movie', methods=['POST'])
@@ -30,9 +30,9 @@ def random_movie():
 
     if filtered_movies:
         random_movie = random.choice(filtered_movies)
-        return render_template('index.html', movie=random_movie)  # Отправляем выбранный фильм в шаблон index.html
+        return render_template('index.html', movie=random_movie)  
     else:
-        return render_template('index.html', movie=None)  # Отправляем None, если нет результатов
+        return render_template('index.html', movie=None) 
 
 
 if __name__ == '__main__':
